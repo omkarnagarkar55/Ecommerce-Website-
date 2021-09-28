@@ -1,0 +1,79 @@
+<style>
+    input.ng-dirty.ng-invalid {border:2px solid red}
+    input.ng-dirty.ng-valid {border:2px solid green}
+</style>
+
+
+<div class="m-2 pro">
+    <div class="bg-info text-white mb-2 p-2">   
+        Add new Product 
+
+    </div>
+    <form novalidate [formGroup]="formGroup"  (ngSubmit)="submitForm()">
+
+        <div class="bg-danger text-white p-2 mb-2"
+        *ngIf="formSubmitted && formGroup.invalid">
+            There are problems with this form
+            <ui >
+                <li *ngFor ="let err of formGroup.getFormValidationSummary() ">{{err}}</li>
+            </ui>
+        </div>
+
+    <div class="form-group" *ngFor ="let control of  formGroup.productControls">
+        <label>{{control.label}}</label>
+        <input class="form-control"
+        name="{{control.modelProperty}}"
+        formControlName="{{control.modelProperty}}" />
+
+        <ul class="text-danger list-unstyled" 
+        *ngIf="(formSubmitted || control.dirty) && control.invalid">      
+            <li *ngFor = "let err of control.getValidationMessages()">{{err}}</li>
+        </ul>
+
+    </div>   
+    <!-- <div class="form-group" >
+        <label>Name</label>
+        <input class="form-control"
+        name="name"
+        
+        formControlName="name"
+       />
+
+        <ul class="text-danger list-unstyled" 
+        *ngIf="(formSubmitted || formGroup.controls['name'].dirty) && formGroup.controls['name'].invalid">
+           
+            <li *ngFor = "let err of formGroup.getValidationMessages('name')">{{err}}</li>
+        </ul>
+    </div>
+
+    <div class="form-group" >
+        <label>Category</label>
+        <input class="form-control"
+        name="category"
+        formControlName="category"
+       />
+
+        <ul class="text-danger list-unstyled" 
+        *ngIf="(formSubmitted || formGroup.controls['category'].dirty) && formGroup.controls['category'].invalid">
+           
+            <li *ngFor = "let err of formGroup.getValidationMessages('category')">{{err}}</li>
+        </ul>
+    </div>
+
+    <div class="form-group" >
+        <label>Price</label>
+        <input class="form-control"
+        name="price"
+        formControlName="price"
+       />
+
+        <ul class="text-danger list-unstyled" 
+        *ngIf="(formSubmitted || formGroup.controls['price'].dirty) && formGroup.controls['price'].invalid">
+            
+            <li *ngFor = "let err of formGroup.getValidationMessages('price')">{{err}}</li>
+        </ul>
+    </div> -->
+
+    <button class="btn btn-primary" [disabled]="(valid)" type="submit" >Submit</button>
+    </form>
+</div>

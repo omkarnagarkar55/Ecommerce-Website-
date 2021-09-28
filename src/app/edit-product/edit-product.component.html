@@ -1,0 +1,179 @@
+<style>
+    input.ng-dirty.ng-invalid {border:2px solid red}
+    input.ng-dirty.ng-valid {border:2px solid green}
+</style>
+<div class="card ">
+    
+    <div class="card-footer">
+        <button class="btn btn-outline-secondary" (click)="onBack()" style='width: 80px;'>Back</button>
+        
+</div>
+<div class="container">
+
+
+<div class="row">
+    <div class="col-md-6">
+        <figure class="view overlay rounded z-depth-1 main-img">
+            <a [href]="productx.image"
+              data-size="710x823">
+              <img [src]="productx.image"
+                class="img-fluid z-depth-1">
+            </a>
+          </figure>
+    </div>
+    <div class="col-md-6">
+        <div class="m-2">
+            <div class="bg-info text-white mb-2 p-2">   
+                Product : 
+        
+            </div>
+            <form novalidate  #myform="ngForm" (ngSubmit)="submitForm(myform)">
+        
+                <div class="bg-danger text-white p-2 mb-2"
+                *ngIf="formSubmitted && myform.invalid">
+                    There are problems with this form
+                    <ui >
+                        <li *ngFor ="let err of getFormValidationSummary(myform) ">{{err}}</li>
+                    </ui>
+                </div>
+            <div class="form-group" >
+                <label>Name</label>
+                <input class="form-control"
+                name="name"
+                [value] ="productx.name"
+                [(ngModel)]="productx.name" 
+                #name = "ngModel"
+                required
+                minlength="5"
+                pattern="^[A-Za-z ]+$"/>
+        
+                <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || name.dirty) && name.invalid">
+                    <!-- <li *ngIf = "name.errors.required">You must enter a product name</li>
+                    <li *ngIf ="name.errors.pattern"> Product name should contain letters only</li>
+                    <li *ngIf="name.errors.minlength">Name must me atleast {{name.errors.minlength.requiredLength}} character</li> -->
+                    <li *ngFor = "let err of getValidationMessages(name)">{{err}}</li>
+                </ul>
+            </div>
+        
+            <div class="form-group">
+                <label>Category</label>
+                <input class="form-control" 
+                name="category" 
+                [value] ="productx.category"
+                [(ngModel)]="productx.category"    
+                required
+                minlength="3"
+                #category = "ngModel"
+                pattern="^[A-Za-z ]+$"
+                />
+        
+                <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || category.dirty) && category.invalid">
+                    <!-- <li *ngIf = "category.errors.required">You must enter a product category</li>
+                    <li *ngIf ="category.errors.pattern"> Category name should contain letters only</li>
+                    <li *ngIf="category.errors.minlength">Category must me atleast {{category.errors.minlength.requiredLength}} character</li> -->
+                    <li *ngFor = "let err of getValidationMessages(category)">{{err}}</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label>Price</label>
+                <input class="form-control" 
+                name="price" 
+                [value] =""
+                [(ngModel)]="productx.price"
+                required
+                pattern="^[0-9]+\.?[0-9]*|\.[0-9]+"
+                maxlength="10"
+                #price="ngModel"/>
+        
+                <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || price.dirty) && price.invalid">
+                    <!-- <li *ngIf = "price.errors.required">You must enter a product price</li>
+                    <li *ngIf ="price.errors.pattern"> Product price should contain number only</li>
+                    <li *ngIf="price.errors.maxlength">Maximum Price length can be {{price.errors.maxlength.requiredLength}} character</li> -->
+                    <li *ngFor = "let err of getValidationMessages(price)">{{err}}</li>
+                </ul>
+                
+            </div>
+
+            <div class="form-group" >
+                <label>Description</label>
+                <textarea class="form-control"
+                name="description"
+                [value] ="productx.description"
+                [(ngModel)]="productx.description" 
+                #description = "ngModel"
+                required
+                minlength="5"
+                ></textarea>
+        
+                <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || description.dirty) && description.invalid">
+                    <!-- <li *ngIf = "name.errors.required">You must enter a product name</li>
+                    <li *ngIf ="name.errors.pattern"> Product name should contain letters only</li>
+                    <li *ngIf="name.errors.minlength">Name must me atleast {{name.errors.minlength.requiredLength}} character</li> -->
+                    <li *ngFor = "let err of getValidationMessages(description)">{{err}}</li>
+                </ul>
+            </div>
+
+            <div class="form-group" >
+                <label>Image URL</label>
+                <input class="form-control"
+                name="image"
+                [value] ="productx.image"
+                [(ngModel)]="productx.image" 
+                #image = "ngModel"
+
+                />
+        
+                <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || image.dirty) && image.invalid">
+                    <!-- <li *ngIf = "name.errors.required">You must enter a product name</li>
+                    <li *ngIf ="name.errors.pattern"> Product name should contain letters only</li>
+                    <li *ngIf="name.errors.minlength">Name must me atleast {{name.errors.minlength.requiredLength}} character</li> -->
+                    <li *ngFor = "let err of getValidationMessages(image)">{{err}}</li>
+                </ul>
+            </div>
+
+
+            <div class="form-group" >
+                <label>Rating</label>
+                <input class="form-control"
+                name="rating"
+                [value] ="productx.rating"
+                [(ngModel)]="productx.rating" 
+                #rating = "ngModel"
+                required
+                minlength="1"
+                maxlength="5"
+                pattern="^[1-5]"/>
+        
+                <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || rating.dirty) && rating.invalid">
+                    <!-- <li *ngIf = "name.errors.required">You must enter a product name</li>
+                    <li *ngIf ="name.errors.pattern"> Product name should contain letters only</li>
+                    <li *ngIf="name.errors.minlength">Name must me atleast {{name.errors.minlength.requiredLength}} character</li> -->
+                    <li *ngFor = "let err of getValidationMessages(rating)">{{err}}</li>
+                </ul>
+            </div>
+
+            <div class="form-group" >
+                <label>Discount</label>
+                <input class="form-control"
+                name="discount"
+                [value] ="productx.discount"
+                [(ngModel)]="productx.discount" 
+                #discount = "ngModel"
+                minlength="0"
+                maxlength="3"
+                pattern="^[0-9]+"/>
+        
+                <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || discount.dirty) && discount.invalid">
+                    <!-- <li *ngIf = "name.errors.required">You must enter a product name</li>
+                    <li *ngIf ="name.errors.pattern"> Product name should contain letters only</li>
+                    <li *ngIf="name.errors.minlength">Name must me atleast {{name.errors.minlength.requiredLength}} character</li> -->
+                    <li *ngFor = "let err of getValidationMessages(discount)">{{err}}</li>
+                </ul>
+            </div>
+        
+            <button class="btn btn-primary" [disabled]="(valid)" type="submit" >Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

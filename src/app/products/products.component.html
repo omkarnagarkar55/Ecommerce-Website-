@@ -1,0 +1,39 @@
+<div class="container py-5">
+    <header class="text-center mb-5">
+        <h1 class="display-4 font-weight-bold">Welcome to {{title}}</h1>
+        <p class="font-italic text-muted mb-0">A place where you can buy what you need </p>
+        <p class="font-italic text-muted">"Wide Variety - Wide Rang" Products </p>
+    </header>
+
+    <div style="background-color: greenyellow;border-radius: 10px;" class="card-body">
+        <div class ="row">
+            <div class="col-md-4" style="font-weight: bold;"> Filter By:  {{listFilter}}</div>
+            <div class="col-md-4 ml-auto">
+                <input type="text" placeholder="Search a product" [(ngModel)]= 'listFilter'/>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- <div class="row">
+        <div class="col-md-6">
+            <h4>{{listFilter}}</h4>
+        </div>
+    </div> -->
+<div class="row pb-5 mb-4">
+
+    <div *ngFor = "let p of productList| Filter:listFilter" class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+        <!-- Card-->
+        <a [routerLink]="['/products',p.id]" style="cursor: pointer;" class="card rounded shadow-sm border-0 hover-shadow">
+            <div class="card-body p-4" >
+                <img [src]='p.image' [alt]="p.name" class="img-fluid d-block mx-auto mb-3">
+                <h5> <a href="#" class="text-dark">{{p.name}}</a></h5>
+                <p *ngIf ="p.discount;else elseBlock">{{p.price - p.discount*0.01*p.price |currency:'INR'}} <del style="color: gray;">{{p.price  |currency:'INR'}}</del><br><i style="font-weight:bold" > {{p.discount}}% OFF</i></p>
+                <ng-template  #elseBlock><p>{{p.price  |currency:'INR'}}</p></ng-template>
+                <hr>
+                <p style="color: black;" >Rating : <span class="stars" data-toggle="tooltip" data-placement="bottom" [title]="p.rating" ><app-star [rating] = "p.rating"></app-star>({{p.reviewCount}})</span></p>
+                <p class="small text-muted font-italic">{{p.description}}</p>
+            </div>
+        </a>
+    </div>
+</div>   
+</div>> 

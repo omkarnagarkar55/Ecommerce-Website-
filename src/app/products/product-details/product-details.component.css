@@ -1,0 +1,13 @@
+/* .prod-img{
+    height: 50vh;
+    width: auto;
+    border-radius: 15px;
+} */
+
+button{
+    margin:7px;
+}
+
+.card,.product-content{
+    margin-top: 40px;
+}

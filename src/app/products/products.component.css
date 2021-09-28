@@ -1,0 +1,26 @@
+img{
+   height: 100px;
+   width: auto;
+   border-radius: 10px;
+}
+
+.card{
+    min-height: 30vh;
+    margin: 15px;
+    border-radius: 15px;
+    text-decoration: none;
+    margin-top: 30px !important;
+    border: 1px solid greenyellow !important;
+}
+
+.container{
+    margin-top: 50px;
+    background-color: rgb(240, 243, 245);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.stars{
+    display: inline;
+
+}

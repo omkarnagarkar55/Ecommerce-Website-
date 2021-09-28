@@ -1,0 +1,119 @@
+<router-outlet ></router-outlet>
+
+
+<div *ngIf="!editMode;" class="card ">
+    
+    <div class="card-footer">
+        <button class="btn btn-outline-secondary" (click)="onBack()" style='width: 80px;'>Back</button>
+        
+    </div>
+    <div class="ml-auto">
+      <button class="btn btn-outline-primary " [routerLink]="['edit']" (click)="onEdit()" style='width: 80px;'>Edit</button>
+      <button class="btn btn-outline-danger " (click)="onDelete(productx.id)" style='width: 80px;'>Delete</button>
+      </div>
+    
+    <!-- <div class="card-header text-center">
+        <h3>{{productx.name}}</h3>
+    </div>
+    <div class="card-body text-center">
+        <img [src]="productx.image" alt="productx.name" class="img-fluid d-block mx-auto mb-3 prod-img"/>
+        <p><strong>Price :{{productx.price |currency:'INR'}}</strong></p>
+      </div> -->
+</div>
+
+<!--Section: Block Content-->
+<section  *ngIf="!editMode;" class="mb-5 product-content">
+
+    <div class="row">
+      <div class="col-md-6 mb-4 mb-md-0">
+  
+        <div id="mdb-lightbox-ui"></div>
+  
+        <div class="mdb-lightbox">
+  
+          <div class="row product-gallery mx-1">
+  
+            <div class="col-12 mb-0">
+              <figure class="view overlay rounded z-depth-1 main-img">
+                <a [href]="productx.image"
+                  data-size="710x823">
+                  <img [src]="productx.image"
+                    class="img-fluid z-depth-1">
+                </a>
+              </figure>
+              
+            </div>
+
+          </div>
+  
+        </div>
+  
+      </div>
+      <div class="col-md-6">
+  
+        <h5>{{productx.name}}</h5>
+        <p class="mb-2 text-muted text-uppercase small">{{productx.category}}</p>
+
+        <span class="stars" data-toggle="tooltip" data-placement="bottom" 
+        [title]="productx.rating" ><app-star [rating] = "productx.rating">
+        </app-star>(100)</span>
+       
+        <p><span class="mr-1"><strong>{{productx.price |currency:'INR'}}</strong></span></p>
+        <p class="pt-1">{{productx.description}}</p>
+
+        <p *ngIf ="productx.discount;else elseBlock">{{productx.price - productx.discount*0.01*productx.price |currency:'INR'}} 
+            <del style="color: gray;">
+                {{productx.price  |currency:'INR'}}
+            </del>
+            <br>
+            <i style="font-weight:bold;color: blue;" > {{productx.discount}}% OFF</i>
+        
+        </p>
+        <ng-template  #elseBlock><p>{{productx.price  |currency:'INR'}}</p></ng-template>
+
+        <div class="table-responsive">
+          <table class="table table-sm table-borderless mb-0">
+            <tbody>
+              <tr>
+                <th class="pl-0 w-25" scope="row"><strong>Category</strong></th>
+                <td>{{productx.category}}</td>
+              </tr>
+              <tr>
+                <th class="pl-0 w-25" scope="row"><strong>Product ID</strong></th>
+                <td>{{productx.id}}</td>
+              </tr>
+              <tr>
+                <th class="pl-0 w-25" scope="row"><strong>Delivery</strong></th>
+                <td>India,USA, Europe</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr>
+        <div class="table-responsive mb-2">
+          <table class="table table-sm table-borderless">
+            <tbody>
+              <tr>
+                <td class="pl-0 pb-0 w-25">Quantity</td>
+              </tr>
+              <tr>
+                <td class="pl-0">
+                  <div class="def-number-input number-input safari_only mb-0">
+                    <!-- <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                      class="fa fa-plus"></button> -->
+                    <input class="quantity" min="0" [value]="quantity" name="quantity" [(ngModel)]="quantity" type="number">
+                    <!-- <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                      class="fa fa-minus"></button> -->
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button type="button" class="btn btn-primary btn-md mr-1 mb-2" (click)="onSubmit()"><i
+            class="fas fa-shopping-cart pr-2" ></i>Add to cart</button>
+      </div>
+    </div>
+  
+  </section>
+  
